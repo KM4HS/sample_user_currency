@@ -15,11 +15,13 @@ public class Currency extends BaseEntity {
     private Long id;
 
     private String currencyName;
+
+    @Column(precision = 30, scale = 5)
     private BigDecimal exchangeRate;
     private String symbol;
 
     @OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
-    private List<UserCurrency> userCurrencies = new ArrayList<>();
+    private List<Exchange> exchanges = new ArrayList<>();
 
     public Currency(String currencyName, BigDecimal exchangeRate, String symbol) {
         this.currencyName = currencyName;

@@ -10,7 +10,7 @@ package com.example.ch4_user_currency.entity;
  */
 
 
-public enum UserCurrStatus {
+public enum ExchangeStatus {
     NORMAL,
     CANCELLED
 }

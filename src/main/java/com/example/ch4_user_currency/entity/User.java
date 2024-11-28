@@ -16,8 +16,8 @@ public class User extends BaseEntity {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserCurrency> userCurrencies = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Exchange> exchanges = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;
