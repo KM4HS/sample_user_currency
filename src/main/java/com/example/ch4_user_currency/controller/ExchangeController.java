@@ -3,6 +3,7 @@ package com.example.ch4_user_currency.controller;
 import com.example.ch4_user_currency.dto.ExchangeRequestDto;
 import com.example.ch4_user_currency.dto.ExchangeResponseDto;
 import com.example.ch4_user_currency.service.ExchangeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class ExchangeController {
      */
     @PostMapping
     public ResponseEntity<ExchangeResponseDto> createExchange(
-            @RequestBody ExchangeRequestDto dto
+            @Valid @RequestBody ExchangeRequestDto dto
     ) {
         ExchangeResponseDto responseDto = exchangeService.createExchange(dto.getUserId(), dto.getCurrencyId(), dto.getAmountInKrw());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);

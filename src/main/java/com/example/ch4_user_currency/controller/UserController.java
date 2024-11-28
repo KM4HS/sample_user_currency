@@ -3,6 +3,7 @@ package com.example.ch4_user_currency.controller;
 import com.example.ch4_user_currency.dto.UserRequestDto;
 import com.example.ch4_user_currency.dto.UserResponseDto;
 import com.example.ch4_user_currency.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok().body(userService.save(userRequestDto));
     }
 

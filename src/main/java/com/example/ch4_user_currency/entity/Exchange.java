@@ -33,6 +33,7 @@ public class Exchange extends BaseEntity {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
+    @Column(nullable = false)
     private BigDecimal amountInKrw;
 
     private BigDecimal amountAfterExchange;

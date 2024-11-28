@@ -1,5 +1,6 @@
 package com.example.ch4_user_currency.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -16,8 +17,12 @@ import java.math.BigDecimal;
 @Getter
 public class ExchangeRequestDto {
 
+    @NotNull(message = "유저 정보를 입력해주세요.")
     private Long userId;
-    private Long currencyId;
-    private BigDecimal amountInKrw;
 
+    @NotNull(message = "환율 정보를 입력해주세요.")
+    private Long currencyId;
+
+    @NotNull(message = "환전할 금액(원)을 입력해주세요.")
+    private BigDecimal amountInKrw;
 }
