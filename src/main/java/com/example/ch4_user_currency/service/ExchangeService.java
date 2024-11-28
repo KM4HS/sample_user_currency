@@ -47,7 +47,7 @@ public class ExchangeService {
 
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Currency findCurrency = currencyRepository.findById(currencyId).orElseThrow(() -> new CustomException(ErrorCode.CURRENCY_NOT_FOUND));
-        BigDecimal amountAfterExchange = amountInKrw.multiply(findCurrency.getExchangeRate()).setScale(2, RoundingMode.UP);
+        BigDecimal amountAfterExchange = amountInKrw.divide(findCurrency.getExchangeRate(),2, RoundingMode.UP);
 
         Exchange savedExchange = exchangeRepository.save(new Exchange(findUser, findCurrency, amountInKrw, amountAfterExchange, ExchangeStatus.NORMAL));
         return new ExchangeResponseDto(savedExchange);

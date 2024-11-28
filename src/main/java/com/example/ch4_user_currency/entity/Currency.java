@@ -17,7 +17,7 @@ public class Currency extends BaseEntity {
     @Column(nullable = false)
     private String currencyName;
 
-    @Column(precision = 30, scale = 5, nullable = false)
+    @Column(nullable = false)
     private BigDecimal exchangeRate;
     private String symbol;
 
