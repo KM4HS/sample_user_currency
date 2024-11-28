@@ -3,6 +3,8 @@ package com.example.ch4_user_currency.service;
 import com.example.ch4_user_currency.dto.CurrencyRequestDto;
 import com.example.ch4_user_currency.dto.CurrencyResponseDto;
 import com.example.ch4_user_currency.entity.Currency;
+import com.example.ch4_user_currency.exception.CustomException;
+import com.example.ch4_user_currency.exception.ErrorCode;
 import com.example.ch4_user_currency.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class CurrencyService {
     }
 
     public Currency findCurrencyById(Long id) {
-        return currencyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("통화를 찾을 수 없습니다."));
+        return currencyRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.CURRENCY_NOT_FOUND));
     }
 
     public List<CurrencyResponseDto> findAll() {

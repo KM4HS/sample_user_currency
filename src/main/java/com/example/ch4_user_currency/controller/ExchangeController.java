@@ -59,11 +59,11 @@ public class ExchangeController {
      * @param exchangeId 환전 요청 식별자
      */
     @PatchMapping("/{exchangeId}")
-    public ResponseEntity<Void> updateExchangeStatus(
+    public ResponseEntity<String> updateExchangeStatus(
             @PathVariable Long exchangeId
     ) {
         exchangeService.cancelExchange(exchangeId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().body("정상적으로 취소되었습니다.");
     }
 }
