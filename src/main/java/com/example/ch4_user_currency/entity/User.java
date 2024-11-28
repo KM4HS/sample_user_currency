@@ -1,4 +1,4 @@
-package com.sparta.currency_user.entity;
+package com.example.ch4_user_currency.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

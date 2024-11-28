@@ -1,9 +1,9 @@
-package com.sparta.currency_user.service;
+package com.example.ch4_user_currency.service;
 
-import com.sparta.currency_user.dto.CurrencyRequestDto;
-import com.sparta.currency_user.dto.CurrencyResponseDto;
-import com.sparta.currency_user.entity.Currency;
-import com.sparta.currency_user.repository.CurrencyRepository;
+import com.example.ch4_user_currency.dto.CurrencyRequestDto;
+import com.example.ch4_user_currency.dto.CurrencyResponseDto;
+import com.example.ch4_user_currency.entity.Currency;
+import com.example.ch4_user_currency.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
