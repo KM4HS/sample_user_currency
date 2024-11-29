@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,6 +38,7 @@ public class ExchangeService {
     private final CurrencyRepository currencyRepository;
     private final UserRepository userRepository;
 
+    private final static List<String> HUNDRED_UNIT = Arrays.asList(new String[]{"JPY", "IDR", "VND", "KHR"});
     /**
      * 환전 요청 생성하는 비즈니스 로직. 환율을 적용한 값을 계산, 소수점 2자리로 반올림.
      *
@@ -49,6 +52,10 @@ public class ExchangeService {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Currency findCurrency = currencyRepository.findById(currencyId).orElseThrow(() -> new CustomException(ErrorCode.CURRENCY_NOT_FOUND));
         BigDecimal amountAfterExchange = amountInKrw.divide(findCurrency.getExchangeRate(), 2, RoundingMode.UP);
+
+        if(HUNDRED_UNIT.contains(findCurrency.getCurrencyName())) {
+            amountAfterExchange = amountAfterExchange.multiply(BigDecimal.valueOf(100));
+        }
 
         Exchange savedExchange = exchangeRepository.save(new Exchange(findUser, findCurrency, amountInKrw, amountAfterExchange, ExchangeStatus.NORMAL));
         return new ExchangeResponseDto(savedExchange);
