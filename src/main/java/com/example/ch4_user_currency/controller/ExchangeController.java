@@ -1,6 +1,7 @@
 package com.example.ch4_user_currency.controller;
 
 import com.example.ch4_user_currency.config.Const;
+import com.example.ch4_user_currency.dto.ExchangeGroupResponseDto;
 import com.example.ch4_user_currency.dto.ExchangeRequestDto;
 import com.example.ch4_user_currency.dto.ExchangeResponseDto;
 import com.example.ch4_user_currency.service.ExchangeService;
@@ -53,6 +54,20 @@ public class ExchangeController {
     ) {
         List<ExchangeResponseDto> exchangesByUserDto = exchangeService.findExchangesByUser(sessionKey);
         return new ResponseEntity<>(exchangesByUserDto, HttpStatus.OK);
+    }
+
+    /**
+     * 유저의 환전 요청을 요청 횟수, 요청 총액으로 그룹화
+     *
+     * @param sessionKey 유저 식별자
+     */
+    @GetMapping("/group")
+    public ResponseEntity<ExchangeGroupResponseDto> findExchangeInGroup(
+            @SessionAttribute(name = Const.LOGIN_USER) Long sessionKey
+    ) {
+        ExchangeGroupResponseDto exchangeInGroup = exchangeService.findExchangeInGroup(sessionKey);
+
+        return ResponseEntity.ok().body(exchangeInGroup);
     }
 
     /**

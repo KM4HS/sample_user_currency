@@ -1,5 +1,6 @@
 package com.example.ch4_user_currency.service;
 
+import com.example.ch4_user_currency.dto.ExchangeGroupResponseDto;
 import com.example.ch4_user_currency.dto.ExchangeResponseDto;
 import com.example.ch4_user_currency.entity.Currency;
 import com.example.ch4_user_currency.entity.Exchange;
@@ -47,7 +48,7 @@ public class ExchangeService {
 
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Currency findCurrency = currencyRepository.findById(currencyId).orElseThrow(() -> new CustomException(ErrorCode.CURRENCY_NOT_FOUND));
-        BigDecimal amountAfterExchange = amountInKrw.divide(findCurrency.getExchangeRate(),2, RoundingMode.UP);
+        BigDecimal amountAfterExchange = amountInKrw.divide(findCurrency.getExchangeRate(), 2, RoundingMode.UP);
 
         Exchange savedExchange = exchangeRepository.save(new Exchange(findUser, findCurrency, amountInKrw, amountAfterExchange, ExchangeStatus.NORMAL));
         return new ExchangeResponseDto(savedExchange);
@@ -75,5 +76,17 @@ public class ExchangeService {
         Exchange findExchange = exchangeRepository.findById(exchangeId).orElseThrow(() -> new CustomException(ErrorCode.EXCHANGE_NOT_FOUND));
         findExchange.cancelExchange();
         exchangeRepository.save(findExchange);
+    }
+
+    /**
+     * 유저의 환전 요청을 그룹화
+     *
+     * @param sessionKey 유저 식별자
+     */
+    public ExchangeGroupResponseDto findExchangeInGroup(Long sessionKey) {
+        int count = exchangeRepository.countExchangesByUserId(sessionKey);
+        BigDecimal totalAfterExchange = exchangeRepository.getTotalAmountInKrw(sessionKey);
+
+        return new ExchangeGroupResponseDto(count, totalAfterExchange);
     }
 }
