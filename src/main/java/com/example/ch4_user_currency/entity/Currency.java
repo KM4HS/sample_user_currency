@@ -14,11 +14,13 @@ public class Currency extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 10)
     private String currencyName;
 
     @Column(nullable = false)
     private BigDecimal exchangeRate;
+
+    @Column(length = 10)
     private String symbol;
 
     @OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
