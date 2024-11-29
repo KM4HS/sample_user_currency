@@ -17,9 +17,6 @@ import java.math.BigDecimal;
 @Getter
 public class ExchangeRequestDto {
 
-    @NotNull(message = "유저 정보를 입력해주세요.")
-    private Long userId;
-
     @NotNull(message = "환율 정보를 입력해주세요.")
     private Long currencyId;
 

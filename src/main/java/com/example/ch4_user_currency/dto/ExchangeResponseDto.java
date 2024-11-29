@@ -20,11 +20,13 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class ExchangeResponseDto {
 
+    private final Long currencyId;
     private final String amountInKrw;
     private final String amountAfterExchange;
     private final ExchangeStatus status;
 
     public ExchangeResponseDto(Exchange exchange) {
+        this.currencyId = exchange.getCurrency().getId();
         this.amountInKrw = exchange.getAmountInKrw().toString() + "₩";
         this.amountAfterExchange = exchange.getAmountAfterExchange().toString() + exchange.getCurrency().getSymbol();
         this.status = exchange.getStatus();

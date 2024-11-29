@@ -1,6 +1,5 @@
 package com.example.ch4_user_currency.service;
 
-import com.example.ch4_user_currency.dto.UserRequestDto;
 import com.example.ch4_user_currency.dto.UserResponseDto;
 import com.example.ch4_user_currency.entity.User;
 import com.example.ch4_user_currency.exception.CustomException;
@@ -27,12 +26,6 @@ public class UserService {
 
     public List<UserResponseDto> findAll() {
         return userRepository.findAll().stream().map(UserResponseDto::toDto).toList();
-    }
-
-    @Transactional
-    public UserResponseDto save(UserRequestDto userRequestDto) {
-        User savedUser = userRepository.save(userRequestDto.toEntity());
-        return new UserResponseDto(savedUser);
     }
 
     @Transactional

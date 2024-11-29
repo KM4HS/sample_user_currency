@@ -1,5 +1,6 @@
 package com.example.ch4_user_currency.controller;
 
+import com.example.ch4_user_currency.config.Const;
 import com.example.ch4_user_currency.dto.ExchangeRequestDto;
 import com.example.ch4_user_currency.dto.ExchangeResponseDto;
 import com.example.ch4_user_currency.service.ExchangeService;
@@ -34,22 +35,23 @@ public class ExchangeController {
      */
     @PostMapping
     public ResponseEntity<ExchangeResponseDto> createExchange(
-            @Valid @RequestBody ExchangeRequestDto dto
+            @Valid @RequestBody ExchangeRequestDto dto,
+            @SessionAttribute(name = Const.LOGIN_USER) Long sessionKey
     ) {
-        ExchangeResponseDto responseDto = exchangeService.createExchange(dto.getUserId(), dto.getCurrencyId(), dto.getAmountInKrw());
+        ExchangeResponseDto responseDto = exchangeService.createExchange(sessionKey, dto.getCurrencyId(), dto.getAmountInKrw());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     /**
      * 유저별 환전 요청 조회
      *
-     * @param userId 유저 식별자
+     * @param sessionKey 유저 식별자
      */
-    @GetMapping("/{userId}")
+    @GetMapping
     public ResponseEntity<List<ExchangeResponseDto>> findExchangesByUser(
-            @PathVariable Long userId
+            @SessionAttribute(name = Const.LOGIN_USER) Long sessionKey
     ) {
-        List<ExchangeResponseDto> exchangesByUserDto = exchangeService.findExchangesByUser(userId);
+        List<ExchangeResponseDto> exchangesByUserDto = exchangeService.findExchangesByUser(sessionKey);
         return new ResponseEntity<>(exchangesByUserDto, HttpStatus.OK);
     }
 
