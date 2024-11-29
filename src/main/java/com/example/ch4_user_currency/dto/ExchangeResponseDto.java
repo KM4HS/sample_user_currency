@@ -1,11 +1,9 @@
 package com.example.ch4_user_currency.dto;
 
-import com.example.ch4_user_currency.entity.ExchangeStatus;
 import com.example.ch4_user_currency.entity.Exchange;
+import com.example.ch4_user_currency.entity.ExchangeStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.math.BigDecimal;
 
 /**
  * <ul>
